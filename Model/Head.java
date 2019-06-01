@@ -11,7 +11,7 @@ public class Head extends Tail implements Wunsz
 	}
 	@Override
 	public void rysuj(Graphics2D g) {
-		g.setColor(new Color(0,100,80));
+		g.setColor(new Color(0,140,100));
 		g.fillRect(this.x, this.y, this.d, this.d);
 	}
 	

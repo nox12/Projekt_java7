@@ -33,4 +33,9 @@ public class Tail implements Wunsz
 		this.y=this.y+y;
 		
 	}
+	public void set_xy(int x,int y)
+	{
+		this.x=x;
+		this.y=y;
+	}
 }
