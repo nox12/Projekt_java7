@@ -6,7 +6,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.ArrayList;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -27,6 +29,9 @@ public class Panel extends JPanel
 	private boolean zjadl=false;
 	private int tail_x;
 	private int tail_y;
+	private int ilosc=0;
+	private JButton b;
+	private boolean reset=false;
 	private JLabel napis;
 	public ArrayList<Wunsz> lista = new ArrayList<Wunsz>();
 	Ifabryka fowoce = new Fabryka();
@@ -36,9 +41,31 @@ public class Panel extends JPanel
 		this.setSize(x,y);
 		this.lista.add(new Head(250,250,25));
 		this.lista.add(new Tail(250,225,25));
+		this.lista.add(new Tail(250,200,25));
 		napis = new JLabel("0");
 		napis.setFont(new Font(napis.getName(), Font.PLAIN, 20));
 		this.add(napis);
+		b = new JButton("Restart");
+		b.setBounds(200, 200, 80, 60);
+		b.setVisible(false);
+		b.setFocusable(false);
+		this.add(b);
+		b.addActionListener(new ActionListener() {
+	        
+			public void actionPerformed(ActionEvent arg0) {
+				lista.clear();
+				lista.add(new Head(250,250,25));
+				lista.add(new Tail(250,225,25));
+				lista.add(new Tail(250,200,25));
+				punkty=0;
+				owoc=null;
+				dodaj=false;
+				zjadl=false;
+				ilosc=0;		
+				napis.setText(new Integer(punkty).toString());
+				reset=true;
+			}          
+	      });
 	}
 	private void add_lista(int x,int y)
 	{
@@ -91,6 +118,7 @@ public class Panel extends JPanel
 			this.tail_y=lista.get(0).get_y();
 			this.owoc=null;
 			this.dodaj=true;
+			this.ilosc++;
 			this.napis.setText(new Integer(this.punkty).toString());
 		}
 	}
@@ -108,6 +136,8 @@ public class Panel extends JPanel
 					this.dodaj=false;
 					add_lista(tail_x,tail_y);
 					this.zjadl=false;
+					this.ilosc--;
+					if(this.ilosc>0)this.zjadl=true;
 				}
 			}
 			if((tail_x == lista.get(lista.size()-1).get_x()) && (tail_y == lista.get(lista.size()-1).get_y()))
@@ -172,6 +202,23 @@ public class Panel extends JPanel
 	public int get_punkty()
 	{
 		return this.punkty;
+	}
+	public int get_dlugosc()
+	{
+		return this.lista.size();
+	}
+	
+	public boolean koniec()
+	{
+		b.setVisible(true);
+		repaint();
+		if(this.reset)
+		{
+			b.setVisible(false);
+			this.reset = false;
+			return false;
+		}
+		return true;
 	}
 	@Override
 	protected void paintComponent(Graphics g)

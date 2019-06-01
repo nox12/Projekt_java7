@@ -1,15 +1,13 @@
 package View;
 
-import Presenter.Panel;
-
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import Presenter.Panel;
 
 public class Frame extends JFrame
 {
@@ -23,7 +21,7 @@ public class Frame extends JFrame
 		this.add(p);
 		this.setResizable(false);
 		this.setVisible(true);
-		this.setSize(501, 501);
+		this.setSize(501, 520);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.addKeyListener(new Adapter());
 	}
@@ -59,24 +57,31 @@ public class Frame extends JFrame
 	public void zadanie()
 	{
 		boolean koniec=false;
-		while(!koniec)
+		while(true)
 		{
-			koniec=p.ruch(kierunek);
-			p.repaint();
-			if(p.get_punkty()%3 == 0)
+			if(!koniec)
 			{
-				if(this.szybkosc<900)
-				this.szybkosc+=10;
+				koniec=p.ruch(kierunek);
+				p.repaint();
+				if(p.get_dlugosc()%4 == 0)
+				{
+					if(this.szybkosc<900)
+						this.szybkosc+=10;
+				}
+				try {
+					Thread.sleep(1000-this.szybkosc);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
-			try {
-				Thread.sleep(1000-this.szybkosc);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			else
+			{
+				koniec=p.koniec();
+				kierunek='d';
+				szybkosc=20;
 			}
 		}
 	}
-	
 	public void set_speed(int x)
 	{
 		if(x<900)
@@ -88,7 +93,9 @@ public class Frame extends JFrame
 	}
 	public static void main(String[] args) {
 		Frame f = new Frame("Wunsz");
+		f.set_speed(20);
 		f.zadanie();
+		
 
 	}
 
