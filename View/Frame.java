@@ -21,7 +21,7 @@ public class Frame extends JFrame
 		this.add(p);
 		this.setResizable(false);
 		this.setVisible(true);
-		this.setSize(501, 520);
+		this.setSize(505, 530);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.addKeyListener(new Adapter());
 	}
@@ -78,7 +78,7 @@ public class Frame extends JFrame
 			{
 				koniec=p.koniec();
 				kierunek='d';
-				szybkosc=20;
+				szybkosc=120;
 			}
 		}
 	}
@@ -93,7 +93,7 @@ public class Frame extends JFrame
 	}
 	public static void main(String[] args) {
 		Frame f = new Frame("Wunsz");
-		f.set_speed(20);
+		f.set_speed(120);
 		f.zadanie();
 		
 
