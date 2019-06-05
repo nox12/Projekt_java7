@@ -17,6 +17,8 @@ import Model.Gruszka;
 import Model.Head;
 import Model.Ifabryka;
 import Model.Iowoc;
+import Model.Jablko;
+import Model.OwocCopier;
 import Model.Tail;
 import Model.Wunsz;
 
@@ -31,10 +33,11 @@ public class Panel extends JPanel
 	private int tail_y;
 	private int ilosc=0;
 	private JButton b;
+	private OwocCopier copier;
 	private boolean reset=false;
 	private JLabel napis;
 	public ArrayList<Wunsz> lista = new ArrayList<Wunsz>();
-	Ifabryka fowoce = new Fabryka();
+	Ifabryka fowoce = new Fabryka();							
 	Iowoc owoc;
 	public Panel()
 	{
@@ -45,6 +48,7 @@ public class Panel extends JPanel
 		napis = new JLabel("0");
 		napis.setFont(new Font(napis.getName(), Font.PLAIN, 20));
 		this.add(napis);
+		this.copier= new OwocCopier((Jablko) this.fowoce.createOwoc(0, 0, 25));			//Prototype
 		b = new JButton("Restart");
 		b.setBounds(200, 200, 80, 60);
 		b.setVisible(false);
@@ -102,10 +106,10 @@ public class Panel extends JPanel
 					if(x.get_x() == r_x && x.get_y() == r_y)koniec=true;
 				}
 			}
-			this.owoc = this.fowoce.createOwoc(r_x, r_y, 25);
+			this.owoc = this.fowoce.createOwoc(r_x, r_y, 25);					//Fabric
 			if(rand >4)
 			{
-				this.owoc = new Gruszka(this.owoc);
+				this.owoc = new Gruszka(this.owoc);								//Decorator
 			}
 		}
 	}

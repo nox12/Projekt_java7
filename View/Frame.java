@@ -2,10 +2,7 @@ package View;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import Presenter.Panel;
 
@@ -14,6 +11,7 @@ public class Frame extends JFrame
 	public Panel p;
 	public char kierunek='d';
 	private int szybkosc=0;
+	boolean koniec=false;
 	public Frame(String nazwa)
 	{
 		p = new Panel();
@@ -56,7 +54,7 @@ public class Frame extends JFrame
 	
 	public void zadanie()
 	{
-		boolean koniec=false;
+		koniec=false;
 		while(true)
 		{
 			if(!koniec)
@@ -90,6 +88,10 @@ public class Frame extends JFrame
 	public int get_speed()
 	{
 		return this.szybkosc;
+	}
+	public boolean get_koniec()
+	{
+		return this.koniec;
 	}
 	public static void main(String[] args) {
 		Frame f = new Frame("Wunsz");
